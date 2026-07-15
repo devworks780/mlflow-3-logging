@@ -1,0 +1,11 @@
+# params.yaml
+index_col: 'customer_id'
+target_col: 'target'
+one_hot_drop: 'if_binary'
+auto_class_weights: 'Balanced'
+test_size: 0.2
+random_state: 42
+n_splits: 5
+metrics: ['f1', 'roc_auc']
+n_jobs: -1
+retrain: True

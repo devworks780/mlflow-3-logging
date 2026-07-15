@@ -1,0 +1,93 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python dvc/scripts/data.py
+    deps:
+    - path: dvc/scripts/data.py
+      hash: md5
+      md5: e70a40bc75c384830b107de4cc2cd7b7
+      size: 1540
+    params:
+      params.yaml:
+        index_col: customer_id
+        retrain: true
+    outs:
+    - path: dvc/data/initial_data.csv
+      hash: md5
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
+  fit_model:
+    cmd: python dvc/scripts/fit.py
+    deps:
+    - path: dvc/data/initial_data.csv
+      hash: md5
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
+    - path: dvc/scripts/fit.py
+      hash: md5
+      md5: 70ba8615d86631f12419b7fcadaf844c
+      size: 3375
+    params:
+      params.yaml:
+        auto_class_weights: Balanced
+        index_col: customer_id
+        one_hot_drop: if_binary
+        random_state: 42
+        retrain: true
+        target_col: target
+        test_size: 0.2
+    outs:
+    - path: dvc/models/fitted_model.pkl
+      hash: md5
+      md5: 5222b8dc88fda1c82d124d3203795886
+      size: 1133241
+    - path: dvc/split/X_train.csv
+      hash: md5
+      md5: a790f4930e28c30615b36b1fabed1740
+      size: 627968
+    - path: dvc/split/X_val.csv
+      hash: md5
+      md5: ee6a8520740fa6a39e40a14fa1246bf6
+      size: 157208
+    - path: dvc/split/y_train.csv
+      hash: md5
+      md5: dc1e1e4c2b6ed0c7459b0533eaeb1ce9
+      size: 11275
+    - path: dvc/split/y_val.csv
+      hash: md5
+      md5: a0ef8ceac16e8722519fecbf1a89f448
+      size: 2825
+  evaluate_model:
+    cmd: python dvc/scripts/evaluate.py
+    deps:
+    - path: dvc/models/fitted_model.pkl
+      hash: md5
+      md5: 5222b8dc88fda1c82d124d3203795886
+      size: 1133241
+    - path: dvc/scripts/evaluate.py
+      hash: md5
+      md5: 97daa62a3eaf6ff764c5919d962c3ce3
+      size: 1464
+    - path: dvc/split/X_val.csv
+      hash: md5
+      md5: ee6a8520740fa6a39e40a14fa1246bf6
+      size: 157208
+    - path: dvc/split/y_val.csv
+      hash: md5
+      md5: a0ef8ceac16e8722519fecbf1a89f448
+      size: 2825
+    params:
+      params.yaml:
+        index_col: customer_id
+        metrics:
+        - f1
+        - roc_auc
+        n_jobs: -1
+        n_splits: 5
+        retrain: true
+        target_col: target
+    outs:
+    - path: dvc/cv_results/cv_res.json
+      hash: md5
+      md5: 01fdedb8bdac50cfb8d0a81a79513eb7
+      size: 81

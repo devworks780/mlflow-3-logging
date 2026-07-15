@@ -1,0 +1,46 @@
+# dvc.yaml
+stages:
+  get_data:
+    cmd: python dvc/scripts/data.py
+    deps:
+      - dvc/scripts/data.py
+    params:
+      - retrain
+      - index_col
+    outs:
+      - dvc/data/initial_data.csv
+  fit_model:
+    cmd: python dvc/scripts/fit.py
+    deps:
+      - dvc/data/initial_data.csv
+      - dvc/scripts/fit.py
+    params:
+      - retrain
+      - index_col
+      - target_col
+      - one_hot_drop
+      - auto_class_weights
+      - test_size
+      - random_state
+    outs:
+      - dvc/models/fitted_model.pkl
+      - dvc/split/X_train.csv
+      - dvc/split/X_val.csv
+      - dvc/split/y_train.csv
+      - dvc/split/y_val.csv
+  evaluate_model:
+    cmd: python dvc/scripts/evaluate.py
+    deps:
+      - dvc/models/fitted_model.pkl
+      - dvc/split/X_val.csv
+      - dvc/split/y_val.csv
+      - dvc/scripts/evaluate.py
+    params:
+      - retrain
+      - index_col
+      - target_col
+      - n_splits
+      - n_jobs
+      - metrics
+    outs:
+      - dvc/cv_results/cv_res.json
