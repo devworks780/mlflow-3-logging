@@ -16,6 +16,10 @@ stages:
       hash: md5
       md5: 6697ae9f4f5405b281ab612658a11a63
       size: 824765
+      cloud:
+        my_storage:
+          etag: 6697ae9f4f5405b281ab612658a11a63
+          version_id: 000656ACB45886D5
   fit_model:
     cmd: python dvc/scripts/fit.py
     deps:
@@ -41,22 +45,42 @@ stages:
       hash: md5
       md5: 5222b8dc88fda1c82d124d3203795886
       size: 1133241
+      cloud:
+        my_storage:
+          etag: 5222b8dc88fda1c82d124d3203795886
+          version_id: 000656ACB45D1BE1
     - path: dvc/split/X_train.csv
       hash: md5
       md5: a790f4930e28c30615b36b1fabed1740
       size: 627968
+      cloud:
+        my_storage:
+          etag: a790f4930e28c30615b36b1fabed1740
+          version_id: 000656ACB447FC62
     - path: dvc/split/X_val.csv
       hash: md5
       md5: ee6a8520740fa6a39e40a14fa1246bf6
       size: 157208
+      cloud:
+        my_storage:
+          etag: ee6a8520740fa6a39e40a14fa1246bf6
+          version_id: 000656ACB463CAA6
     - path: dvc/split/y_train.csv
       hash: md5
       md5: dc1e1e4c2b6ed0c7459b0533eaeb1ce9
       size: 11275
+      cloud:
+        my_storage:
+          etag: dc1e1e4c2b6ed0c7459b0533eaeb1ce9
+          version_id: 000656ACB44FE69E
     - path: dvc/split/y_val.csv
       hash: md5
       md5: a0ef8ceac16e8722519fecbf1a89f448
       size: 2825
+      cloud:
+        my_storage:
+          etag: a0ef8ceac16e8722519fecbf1a89f448
+          version_id: 000656ACB44FCEE1
   evaluate_model:
     cmd: python dvc/scripts/evaluate.py
     deps:
@@ -91,3 +115,7 @@ stages:
       hash: md5
       md5: 01fdedb8bdac50cfb8d0a81a79513eb7
       size: 81
+      cloud:
+        my_storage:
+          etag: 01fdedb8bdac50cfb8d0a81a79513eb7
+          version_id: 000656ACB45175F8
