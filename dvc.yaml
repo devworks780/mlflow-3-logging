@@ -15,6 +15,7 @@ stages:
       - dvc/data/initial_data.csv
       - dvc/scripts/fit.py
     params:
+      - classification_threshold
       - retrain
       - index_col
       - target_col
@@ -44,3 +45,4 @@ stages:
       - metrics
     outs:
       - dvc/cv_results/cv_res.json
+      - dvc/cv_results/best_threshold.json

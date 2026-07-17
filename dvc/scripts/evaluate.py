@@ -42,6 +42,28 @@ def evaluate_model():
     os.makedirs("dvc/cv_results", exist_ok=True)
     with open("dvc/cv_results/cv_res.json", "w") as fd:
         json.dump(cv_res, fd)
+    best_threshold = find_best_threshold(
+        y_val, pipeline.predict_proba(X_val)[:, 1]
+    )
+    with open("dvc/cv_results/best_threshold.json", "w") as fd:
+        json.dump({"best_threshold": best_threshold}, fd)
+
+
+def find_best_threshold(y_true, y_proba):
+    thresholds = [0.1 * i for i in range(1, 10)]
+    best_threshold = 0.5
+    best_score = 0.0
+
+    for threshold in thresholds:
+        y_pred = (y_proba >= threshold).astype(int)
+        from sklearn.metrics import f1_score
+
+        score = f1_score(y_true, y_pred)
+        if score > best_score:
+            best_score = score
+            best_threshold = threshold
+
+    return best_threshold
 
 
 if __name__ == "__main__":

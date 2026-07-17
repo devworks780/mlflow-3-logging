@@ -9,3 +9,4 @@ n_splits: 5
 metrics: ['f1', 'roc_auc']
 n_jobs: -1
 retrain: True
+classification_threshold: 0.6

@@ -86,6 +86,9 @@ def fit_model():
     pipeline = Pipeline([("preprocessor", preprocessor), ("model", model)])
     pipeline.fit(train_data, y_train)
 
+    threshold = params.get("classification_threshold", 0.6)
+    pipeline.named_steps["model"].set_probability_threshold(threshold)
+
     # сохраните обученную модель в models/fitted_model.pkl
     os.makedirs(
         "dvc/models", exist_ok=True

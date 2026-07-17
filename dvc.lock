@@ -29,11 +29,12 @@ stages:
       size: 824765
     - path: dvc/scripts/fit.py
       hash: md5
-      md5: 70ba8615d86631f12419b7fcadaf844c
-      size: 3375
+      md5: 9d0bfafa9fec60ead7eb74a3d9a5b791
+      size: 3507
     params:
       params.yaml:
         auto_class_weights: Balanced
+        classification_threshold: 0.6
         index_col: customer_id
         one_hot_drop: if_binary
         random_state: 42
@@ -43,12 +44,12 @@ stages:
     outs:
     - path: dvc/models/fitted_model.pkl
       hash: md5
-      md5: 5222b8dc88fda1c82d124d3203795886
-      size: 1133241
+      md5: 2fdbd5d4588074acfa80cf2e5ed9fe38
+      size: 1133437
       cloud:
         my_storage:
-          etag: 5222b8dc88fda1c82d124d3203795886
-          version_id: 000656ACB45D1BE1
+          etag: 2fdbd5d4588074acfa80cf2e5ed9fe38
+          version_id: 000656CD450C7620
     - path: dvc/split/X_train.csv
       hash: md5
       md5: a790f4930e28c30615b36b1fabed1740
@@ -86,12 +87,12 @@ stages:
     deps:
     - path: dvc/models/fitted_model.pkl
       hash: md5
-      md5: 5222b8dc88fda1c82d124d3203795886
-      size: 1133241
+      md5: 2fdbd5d4588074acfa80cf2e5ed9fe38
+      size: 1133437
     - path: dvc/scripts/evaluate.py
       hash: md5
-      md5: 97daa62a3eaf6ff764c5919d962c3ce3
-      size: 1464
+      md5: fd60d26f6f871f7776e040f11c959d20
+      size: 2125
     - path: dvc/split/X_val.csv
       hash: md5
       md5: ee6a8520740fa6a39e40a14fa1246bf6
@@ -111,11 +112,19 @@ stages:
         retrain: true
         target_col: target
     outs:
-    - path: dvc/cv_results/cv_res.json
+    - path: dvc/cv_results/best_threshold.json
       hash: md5
-      md5: 01fdedb8bdac50cfb8d0a81a79513eb7
-      size: 81
+      md5: 1811b22f2e52ce16948c618187a7095e
+      size: 38
       cloud:
         my_storage:
-          etag: 01fdedb8bdac50cfb8d0a81a79513eb7
-          version_id: 000656ACB45175F8
+          etag: 1811b22f2e52ce16948c618187a7095e
+          version_id: 000656CD45010B95
+    - path: dvc/cv_results/cv_res.json
+      hash: md5
+      md5: c2ae37e1109946f8a1026201e7048a10
+      size: 80
+      cloud:
+        my_storage:
+          etag: c2ae37e1109946f8a1026201e7048a10
+          version_id: 000656CD44FD1CD7
