@@ -1,0 +1,11 @@
+catboost==1.2.10
+category_encoders==2.9.0
+dvc==3.67.1
+dvc-s3==3.3.0
+joblib==1.5.3
+mlflow==3.14.0
+numpy==1.26.4
+pandas==2.3.3
+psycopg2-binary==2.9.12
+scikit-learn==1.6.0
+scipy==1.17.1
