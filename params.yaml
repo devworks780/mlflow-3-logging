@@ -10,3 +10,4 @@ metrics: ['f1', 'roc_auc']
 n_jobs: -1
 retrain: True
 classification_threshold: 0.6
+is_preprocessing: True

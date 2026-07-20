@@ -29,8 +29,8 @@ stages:
       size: 824765
     - path: dvc/scripts/fit.py
       hash: md5
-      md5: 9d0bfafa9fec60ead7eb74a3d9a5b791
-      size: 3507
+      md5: df6caf42417547ea7c1ca01c48921a22
+      size: 3669
     params:
       params.yaml:
         auto_class_weights: Balanced
@@ -44,28 +44,28 @@ stages:
     outs:
     - path: dvc/models/fitted_model.pkl
       hash: md5
-      md5: 2fdbd5d4588074acfa80cf2e5ed9fe38
-      size: 1133437
+      md5: f0eab55152c02b8505e373d6ed6ad5ed
+      size: 1141538
       cloud:
         my_storage:
-          etag: 2fdbd5d4588074acfa80cf2e5ed9fe38
-          version_id: 000656CD450C7620
+          etag: f0eab55152c02b8505e373d6ed6ad5ed
+          version_id: 00065709FB306F5A
     - path: dvc/split/X_train.csv
       hash: md5
-      md5: a790f4930e28c30615b36b1fabed1740
-      size: 627968
+      md5: f2e86dacfb8923e4cf41a0c748424e20
+      size: 2726510
       cloud:
         my_storage:
-          etag: a790f4930e28c30615b36b1fabed1740
-          version_id: 000656ACB447FC62
+          etag: f2e86dacfb8923e4cf41a0c748424e20
+          version_id: 00065709FB31F229
     - path: dvc/split/X_val.csv
       hash: md5
-      md5: ee6a8520740fa6a39e40a14fa1246bf6
-      size: 157208
+      md5: 55f12612b6c0bd860ba8a87387349bf7
+      size: 683046
       cloud:
         my_storage:
-          etag: ee6a8520740fa6a39e40a14fa1246bf6
-          version_id: 000656ACB463CAA6
+          etag: 55f12612b6c0bd860ba8a87387349bf7
+          version_id: 00065709FB1F4102
     - path: dvc/split/y_train.csv
       hash: md5
       md5: dc1e1e4c2b6ed0c7459b0533eaeb1ce9
@@ -87,16 +87,16 @@ stages:
     deps:
     - path: dvc/models/fitted_model.pkl
       hash: md5
-      md5: 2fdbd5d4588074acfa80cf2e5ed9fe38
-      size: 1133437
+      md5: f0eab55152c02b8505e373d6ed6ad5ed
+      size: 1141538
     - path: dvc/scripts/evaluate.py
       hash: md5
       md5: fd60d26f6f871f7776e040f11c959d20
       size: 2125
     - path: dvc/split/X_val.csv
       hash: md5
-      md5: ee6a8520740fa6a39e40a14fa1246bf6
-      size: 157208
+      md5: 55f12612b6c0bd860ba8a87387349bf7
+      size: 683046
     - path: dvc/split/y_val.csv
       hash: md5
       md5: a0ef8ceac16e8722519fecbf1a89f448
@@ -122,9 +122,9 @@ stages:
           version_id: 000656CD45010B95
     - path: dvc/cv_results/cv_res.json
       hash: md5
-      md5: c2ae37e1109946f8a1026201e7048a10
-      size: 80
+      md5: 62286c7c6b9c60c6f44385a9cade08d8
+      size: 79
       cloud:
         my_storage:
-          etag: c2ae37e1109946f8a1026201e7048a10
-          version_id: 000656CD44FD1CD7
+          etag: 62286c7c6b9c60c6f44385a9cade08d8
+          version_id: 00065709FB282751

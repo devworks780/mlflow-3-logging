@@ -19,7 +19,11 @@ def fit_model():
         params = yaml.safe_load(fd)
 
     # загрузите результат предыдущего шага: initial_data.csv
-    data = pd.read_csv("dvc/data/initial_data.csv")
+    is_preprocessing = params.get("is_preprocessing", False)
+    if is_preprocessing:
+        data = pd.read_csv("dvc/data/preprocessing_data.csv")
+    else:
+        data = pd.read_csv("dvc/data/initial_data.csv")
 
     # реализуйте основную логику шага с использованием гиперпараметров
     target_col = params["target_col"]
