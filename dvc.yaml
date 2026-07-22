@@ -9,9 +9,29 @@ stages:
       - index_col
     outs:
       - dvc/data/initial_data.csv
+  data_preprocessing:
+    cmd: python dvc/scripts/data_preprocessing.py
+    deps:
+      - dvc/data/initial_data.csv
+      - dvc/scripts/data_preprocessing.py
+    params:
+      - is_preprocessing
+    outs:
+      - dvc/data/preprocessing_data.csv
+  data_extend:
+    cmd: python dvc/scripts/data_extend.py
+    deps:
+      - dvc/data/preprocessing_data.csv
+      - dvc/scripts/data_extend.py
+    params:
+      - is_extend
+    outs:
+      - dvc/data/extended_data.csv
   fit_model:
     cmd: python dvc/scripts/fit.py
     deps:
+      - dvc/data/preprocessing_data.csv
+      - dvc/data/extended_data.csv
       - dvc/data/initial_data.csv
       - dvc/scripts/fit.py
     params:
@@ -23,6 +43,8 @@ stages:
       - auto_class_weights
       - test_size
       - random_state
+      - is_extend
+      - is_preprocessing
     outs:
       - dvc/models/fitted_model.pkl
       - dvc/split/X_train.csv
@@ -32,6 +54,8 @@ stages:
   evaluate_model:
     cmd: python dvc/scripts/evaluate.py
     deps:
+      - dvc/data/preprocessing_data.csv    
+      - dvc/data/extended_data.csv
       - dvc/models/fitted_model.pkl
       - dvc/split/X_val.csv
       - dvc/split/y_val.csv
@@ -43,6 +67,8 @@ stages:
       - n_splits
       - n_jobs
       - metrics
+      - is_extend
+      - is_preprocessing      
     outs:
       - dvc/cv_results/cv_res.json
       - dvc/cv_results/best_threshold.json

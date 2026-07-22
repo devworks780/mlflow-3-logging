@@ -40,6 +40,7 @@ def data_preprocessing():
     data = pd.read_csv("dvc/data/initial_data.csv")
 
     preprocessing_data = preprocess_data_local(data)
+    # preprocessing_data = pd.concat([preprocessing_data, data], axis=1)
     # сохраните обученную модель в models/fitted_model.pkl
     os.makedirs("dvc/data", exist_ok=True)
     preprocessing_data.to_csv("dvc/data/preprocessing_data.csv", index=False)

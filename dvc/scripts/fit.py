@@ -20,9 +20,15 @@ def fit_model():
 
     # загрузите результат предыдущего шага: initial_data.csv
     is_preprocessing = params.get("is_preprocessing", False)
-    if is_preprocessing:
+    is_extend = params.get("is_extend", False)
+    if is_extend:
+        print("Using extended data for model fitting.")
+        data = pd.read_csv("dvc/data/extended_data.csv")
+    elif is_preprocessing:
+        print("Using preprocessed data for model fitting.")
         data = pd.read_csv("dvc/data/preprocessing_data.csv")
     else:
+        print("Using initial data for model fitting.")
         data = pd.read_csv("dvc/data/initial_data.csv")
 
     # реализуйте основную логику шага с использованием гиперпараметров
