@@ -10,5 +10,11 @@ metrics: ['f1', 'roc_auc']
 n_jobs: -1
 retrain: True
 classification_threshold: 0.6
-is_preprocessing: True
-is_extend: True
+is_preprocessing: False
+is_extend: False
+# MLflow parameters
+is_save_model: False
+tracking_uri: "http://127.0.0.1:5003"
+experiment_name: "churn_model_experiment"
+run_name: "initial_data_model_run"
+registry_model_name: "churn_model_initial_data"

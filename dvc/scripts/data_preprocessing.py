@@ -30,14 +30,16 @@ def data_preprocessing():
     with open("params.yaml", "r") as fd:
         params = yaml.safe_load(fd)
 
+    # загрузите результат предыдущего шага: initial_data.csv
     is_preprocessing = params.get("is_preprocessing", False)
+    data = pd.read_csv("dvc/data/initial_data.csv")
     if not is_preprocessing:
         print(
             "Data preprocessing is disabled in params.yaml. Skipping this step."
         )
+        os.makedirs("dvc/data", exist_ok=True)
+        data.to_csv("dvc/data/preprocessing_data.csv", index=False)
         return
-    # загрузите результат предыдущего шага: initial_data.csv
-    data = pd.read_csv("dvc/data/initial_data.csv")
 
     preprocessing_data = preprocess_data_local(data)
     # preprocessing_data = pd.concat([preprocessing_data, data], axis=1)

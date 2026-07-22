@@ -25,16 +25,16 @@ stages:
     deps:
     - path: dvc/data/extended_data.csv
       hash: md5
-      md5: 87993528e9bb243221dd231438c3cdbf
-      size: 3448218
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
     - path: dvc/data/initial_data.csv
       hash: md5
       md5: 6697ae9f4f5405b281ab612658a11a63
       size: 824765
     - path: dvc/data/preprocessing_data.csv
       hash: md5
-      md5: ea499bb628fc6c81558825e2bd62a08c
-      size: 3567740
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
     - path: dvc/scripts/fit.py
       hash: md5
       md5: 65e40b52fe0147270b5cd33497daace7
@@ -44,8 +44,8 @@ stages:
         auto_class_weights: Balanced
         classification_threshold: 0.6
         index_col: customer_id
-        is_extend: true
-        is_preprocessing: true
+        is_extend: false
+        is_preprocessing: false
         one_hot_drop: if_binary
         random_state: 42
         retrain: true
@@ -54,28 +54,28 @@ stages:
     outs:
     - path: dvc/models/fitted_model.pkl
       hash: md5
-      md5: b6095269e143c166687da37d6fdda504
-      size: 1142194
+      md5: 58894d905bbe4c18a9de7ed51af93a66
+      size: 1133437
       cloud:
         my_storage:
-          etag: b6095269e143c166687da37d6fdda504
-          version_id: 0006572E4C86857C
+          etag: 58894d905bbe4c18a9de7ed51af93a66
+          version_id: 0006572F70A45FD9
     - path: dvc/split/X_train.csv
       hash: md5
-      md5: 285e0a4c71a60e12a230abd183da405b
-      size: 2726675
+      md5: a790f4930e28c30615b36b1fabed1740
+      size: 627968
       cloud:
         my_storage:
-          etag: 285e0a4c71a60e12a230abd183da405b
-          version_id: 0006572E4C9BAABD
+          etag: a790f4930e28c30615b36b1fabed1740
+          version_id: 0006572F70A2E938
     - path: dvc/split/X_val.csv
       hash: md5
-      md5: 10124acb319ac1b3a607e535d429420f
-      size: 682776
+      md5: ee6a8520740fa6a39e40a14fa1246bf6
+      size: 157208
       cloud:
         my_storage:
-          etag: 10124acb319ac1b3a607e535d429420f
-          version_id: 0006572E4C9762BB
+          etag: ee6a8520740fa6a39e40a14fa1246bf6
+          version_id: 0006572F709B98E0
     - path: dvc/split/y_train.csv
       hash: md5
       md5: dc1e1e4c2b6ed0c7459b0533eaeb1ce9
@@ -97,24 +97,24 @@ stages:
     deps:
     - path: dvc/data/extended_data.csv
       hash: md5
-      md5: 87993528e9bb243221dd231438c3cdbf
-      size: 3448218
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
     - path: dvc/data/preprocessing_data.csv
       hash: md5
-      md5: ea499bb628fc6c81558825e2bd62a08c
-      size: 3567740
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
     - path: dvc/models/fitted_model.pkl
       hash: md5
-      md5: b6095269e143c166687da37d6fdda504
-      size: 1142194
+      md5: 58894d905bbe4c18a9de7ed51af93a66
+      size: 1133437
     - path: dvc/scripts/evaluate.py
       hash: md5
       md5: fd60d26f6f871f7776e040f11c959d20
       size: 2125
     - path: dvc/split/X_val.csv
       hash: md5
-      md5: 10124acb319ac1b3a607e535d429420f
-      size: 682776
+      md5: ee6a8520740fa6a39e40a14fa1246bf6
+      size: 157208
     - path: dvc/split/y_val.csv
       hash: md5
       md5: a0ef8ceac16e8722519fecbf1a89f448
@@ -122,8 +122,8 @@ stages:
     params:
       params.yaml:
         index_col: customer_id
-        is_extend: true
-        is_preprocessing: true
+        is_extend: false
+        is_preprocessing: false
         metrics:
         - f1
         - roc_auc
@@ -142,12 +142,12 @@ stages:
           version_id: 000656CD45010B95
     - path: dvc/cv_results/cv_res.json
       hash: md5
-      md5: 82e106f96195599d9b19e8f1523ba8da
-      size: 81
+      md5: 7487e32e46eb1ff2493eb1a3c95caf2f
+      size: 80
       cloud:
         my_storage:
-          etag: 82e106f96195599d9b19e8f1523ba8da
-          version_id: 0006572E4C8C3F7B
+          etag: 7487e32e46eb1ff2493eb1a3c95caf2f
+          version_id: 0006572F709229A1
   data_preprocessing:
     cmd: python dvc/scripts/data_preprocessing.py
     deps:
@@ -157,40 +157,66 @@ stages:
       size: 824765
     - path: dvc/scripts/data_preprocessing.py
       hash: md5
-      md5: 8091a4900da8072654dbb72e22a342d5
-      size: 3928
+      md5: c98e29bcb6b5ca0a31ec80710c368f32
+      size: 4043
     params:
       params.yaml:
-        is_preprocessing: true
+        is_preprocessing: false
     outs:
     - path: dvc/data/preprocessing_data.csv
       hash: md5
-      md5: ea499bb628fc6c81558825e2bd62a08c
-      size: 3567740
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
       cloud:
         my_storage:
-          etag: ea499bb628fc6c81558825e2bd62a08c
-          version_id: 0006572E4C9E1BE3
+          etag: 6697ae9f4f5405b281ab612658a11a63
+          version_id: 0006572F70A4D31C
   data_extend:
     cmd: python dvc/scripts/data_extend.py
     deps:
     - path: dvc/data/preprocessing_data.csv
       hash: md5
-      md5: ea499bb628fc6c81558825e2bd62a08c
-      size: 3567740
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
     - path: dvc/scripts/data_extend.py
       hash: md5
-      md5: 2160bbb8403c31a083aed2bb452abb9f
-      size: 5620
+      md5: 5135405193156ecaf970874b933f610b
+      size: 5678
     params:
       params.yaml:
-        is_extend: true
+        is_extend: false
     outs:
     - path: dvc/data/extended_data.csv
       hash: md5
-      md5: 87993528e9bb243221dd231438c3cdbf
-      size: 3448218
+      md5: 6697ae9f4f5405b281ab612658a11a63
+      size: 824765
       cloud:
         my_storage:
-          etag: 87993528e9bb243221dd231438c3cdbf
-          version_id: 0006572E4C9CF412
+          etag: 6697ae9f4f5405b281ab612658a11a63
+          version_id: 0006572F70A54CD8
+  save_model:
+    cmd: python dvc/scripts/save_model.py
+    deps:
+    - path: dvc/models/fitted_model.pkl
+      hash: md5
+      md5: 58894d905bbe4c18a9de7ed51af93a66
+      size: 1133437
+    - path: dvc/scripts/save_model.py
+      hash: md5
+      md5: 2442a18e8573416d6c637d38bc4571df
+      size: 2752
+    - path: dvc/split/X_val.csv
+      hash: md5
+      md5: ee6a8520740fa6a39e40a14fa1246bf6
+      size: 157208
+    - path: dvc/split/y_val.csv
+      hash: md5
+      md5: a0ef8ceac16e8722519fecbf1a89f448
+      size: 2825
+    params:
+      params.yaml:
+        experiment_name: churn_model_experiment
+        is_save_model: false
+        registry_model_name: churn_model_initial_data
+        run_name: initial_data_model_run
+        tracking_uri: http://127.0.0.1:5003

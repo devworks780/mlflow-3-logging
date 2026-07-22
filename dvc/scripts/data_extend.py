@@ -32,12 +32,12 @@ def data_extend():
     with open("params.yaml", "r") as fd:
         params = yaml.safe_load(fd)
 
+    data = pd.read_csv("dvc/data/preprocessing_data.csv")
     is_extend = params.get("is_extend", False)
     if not is_extend:
         print("Data extend is disabled in params.yaml. Skipping this step.")
+        data.to_csv("dvc/data/extended_data.csv", index=False)
         return
-
-    data = pd.read_csv("dvc/data/preprocessing_data.csv")
 
     extended_data = extend_data_local(data)
     # сохраните обученную модель в models/fitted_model.pkl
@@ -82,12 +82,8 @@ def extend_data_local(dat):
 
     # AutoFeat с преобразованиями log и sqrt не должен получать признаки,
     # содержащие отрицательные значения.
-    finite_num_cols = num_cols[
-        np.isfinite(X[num_cols].to_numpy()).all(axis=0)
-    ]
-    non_constant_num_cols = finite_num_cols[
-        X[finite_num_cols].nunique() > 1
-    ]
+    finite_num_cols = num_cols[np.isfinite(X[num_cols].to_numpy()).all(axis=0)]
+    non_constant_num_cols = finite_num_cols[X[finite_num_cols].nunique() > 1]
     non_negative_num_cols = non_constant_num_cols[
         (X[non_constant_num_cols] >= 0).all()
     ].tolist()
@@ -139,9 +135,7 @@ def extend_data_local(dat):
         X_train[non_negative_num_cols].copy(),
         y_train.copy().fillna(0),
     )
-    X_test_features = afc.transform(
-        X_test[non_negative_num_cols].copy()
-    )
+    X_test_features = afc.transform(X_test[non_negative_num_cols].copy())
 
     # fit_transform/transform возвращают как исходные числовые признаки,
     # так и созданные AutoFeat. Добавляем к dat только действительно новые.
@@ -156,13 +150,14 @@ def extend_data_local(dat):
     X_train_new_features.index = X_train.index
     X_test_new_features.index = X_test.index
 
-    new_features = pd.concat(
-        [X_train_new_features, X_test_new_features]
-    ).loc[data.index]
+    new_features = pd.concat([X_train_new_features, X_test_new_features]).loc[
+        data.index
+    ]
 
     return pd.concat([data, new_features], axis=1)
 
 
 if __name__ == "__main__":
     extended_data = data_extend()
-    print("Extended data shape:", extended_data.shape)
+    if extended_data is not None:
+        print("Extended data shape:", extended_data.shape)

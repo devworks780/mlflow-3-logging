@@ -72,3 +72,16 @@ stages:
     outs:
       - dvc/cv_results/cv_res.json
       - dvc/cv_results/best_threshold.json
+  save_model:
+    cmd: python dvc/scripts/save_model.py
+    deps:
+      - dvc/models/fitted_model.pkl
+      - dvc/split/X_val.csv
+      - dvc/split/y_val.csv
+      - dvc/scripts/save_model.py
+    params:
+      - is_save_model
+      - tracking_uri
+      - experiment_name
+      - run_name
+      - registry_model_name
